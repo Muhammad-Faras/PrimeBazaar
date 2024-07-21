@@ -1,0 +1,65 @@
+{% extends 'home/base.html' %}
+
+{% block slider %}
+
+    <!-- Carousel Container -->
+    <div>
+        <div class="relative overflow-hidden max-h-96 mb-2"> <!-- Set max height to 24rem (96 * 4px) -->
+            <!-- Images Container -->
+            <div id="carousel" class="flex transition-transform duration-500 ease-in-out">
+                <!-- Image 1 -->
+                <img src="https://m.media-amazon.com/images/I/81KkrQWEHIL._SX3000_.jpg" alt="Image 1" class="min-w-full object-cover h-full">
+                <!-- Image 2 -->
+                <img src="https://m.media-amazon.com/images/I/61CiqVTRBEL._SX3000_.jpg" alt="Image 2" class="min-w-full object-cover h-full">
+                <!-- Image 3 -->
+                <img src="https://m.media-amazon.com/images/I/61zAjw4bqPL._SX3000_.jpg" alt="Image 3" class="min-w-full object-cover h-full">
+            </div>
+            
+            <!-- Previous Button -->
+            <button id="prevBtn" class="py-14 px-4 absolute left-0 top-2 md:top-14 text-white p-2 hover:bg-gray-800 hover:bg-opacity-50 focus:outline-none">
+                <i class="fas fa-chevron-left text-4xl"></i>
+            </button>
+            
+            <!-- Next Button -->
+            <button id="nextBtn" class="py-14 px-4 text-center absolute right-0 top-0 md:top-14 text-white p-2 hover:bg-gray-800 hover:bg-opacity-25 focus:outline-none">
+                <i class="fas fa-chevron-right text-4xl"></i>
+            </button>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const carousel = document.getElementById('carousel');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        let index = 0;
+
+        // Get the number of images
+        const images = carousel.querySelectorAll('img');
+        const totalImages = images.length;
+
+        // Update the transform property to show the image at the given index
+        const updateCarousel = () => {
+            const offset = -index * 100;
+            carousel.style.transform = `translateX(${offset}%)`;
+        };
+
+        // Show next image
+        nextBtn.addEventListener('click', () => {
+            index = (index + 1) % totalImages;
+            updateCarousel();
+        });
+
+        // Show previous image
+        prevBtn.addEventListener('click', () => {
+            index = (index - 1 + totalImages) % totalImages;
+            updateCarousel();
+        });
+    });
+</script>
+
+{% endblock%}

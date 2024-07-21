@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static '/css/base.css' %}">
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-white">
+    <header class="bg-gray-800 shadow-lg">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="{% url 'home:home' %}" class="text-3xl font-bold text-white"><p>PrimeBazaar</p></a>
+
+            <!-- Search Bar with Icon -->
+            <div class="flex-grow flex items-center mx-4">
+                <div class="relative w-full">
+                    <form action="{% url 'product:search' %}" method="get">
+                        <input type="text"  name="q" placeholder="Search for products..." class="w-full pl-4 pr-12 py-2 rounded bg-gray-700 text-white border-none focus:ring-2 focus:ring-yellow-500">
+                    <button type="submit" class="absolute right-0 top-0 px-4 py-2 bg-yellow-500 rounded-r">
+                        <i class="fas fa-search text-gray-900"></i>
+                    </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Utility Links and Menu Button -->
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <button id="user-menu-button" class="text-white font-bold flex items-center space-x-2 focus:outline-none">
+                        <!-- <img src="{% static 'path/to/user/profile/image.jpg' %}" alt="User Profile" class="w-8 h-8 rounded-full"> -->
+                        <!-- <i class="fa fa-user p-4 rounded-full border {% if request.user.is_authenticated %} border-yellow-500 {% else %} border-white {% endif %}"></i> -->
+                        {% if request.user.is_authenticated %}
+                        <span>{{ request.user }}</span>
+                        {% else %}
+                        <span>Login</span>
+                        {% endif %}
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div id="user-menu" class="hidden absolute z-10 right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2">
+                        {% if request.user.is_authenticated %}
+                        <form method="POST" action="{% url 'accounts:logout' %}">
+                            {% csrf_token %}
+                            <button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
+                        </form>
+                        {% else %}
+                        <a href="{% url 'accounts:login' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Login</a>
+                        {% endif %}
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Orders</a>
+                        <a href="{% url 'product:product_cart' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cart</a>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="text-white focus:outline-none lg:hidden">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="bg-gray-700 lg:flex lg:justify-center hidden lg:block">
+        <ul class="flex flex-col lg:flex-row lg:justify-center space-y-2 lg:space-y-0 lg:space-x-4 py-4">
+            <li>
+                <a href="{% url 'product:product_list' subcategory_name='Laptops' %}" class="text-white hover:text-yellow-500">Laptop</a>
+            </li>
+            <li>
+                <a href="" class="text-white hover:text-yellow-500">Games</a>
+            </li>
+            <li>
+                <a href="" class="text-white hover:text-yellow-500">XBOX</a>
+            </li>
+            <li>
+                <a href="" class="text-white hover:text-yellow-500">Headset</a>
+            </li>
+            <li>
+                <a href="" class="text-white hover:text-yellow-500">Keyboard</a>
+            </li>
+            <li>
+                <a href="" class="text-white hover:text-yellow-500">Playstation</a>
+            </li>
+            <li>
+                <a href="" class="text-white hover:text-yellow-500">Mouse</a>
+            </li>
+            <li>
+                <a href="" class="text-white hover:text-yellow-500">Chair</a>
+            </li>
+        </ul>
+    </nav>
+
+    {% block slider %}
+    {% endblock %}
+
+    <!-- Content Area -->
+    <main class="">
+        <!-- Page Content -->
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+<footer class="bg-gray-800 text-gray-300">
+    <div class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-y-8">
+            <!-- Footer Column 1 -->
+            <div class="md:col-span-1">
+                <h2 class="text-lg font-semibold mb-4">About Us</h2>
+                <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vel urna vitae mauris fermentum tincidunt.</p>
+            </div>
+
+            <!-- Footer Column 2 -->
+            <div class="md:col-span-1">
+                <h2 class="text-lg font-semibold mb-4">Customer Service</h2>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-sm hover:text-gray-400">FAQs</a></li>
+                    <li><a href="#" class="text-sm hover:text-gray-400">Shipping Information</a></li>
+                    <li><a href="#" class="text-sm hover:text-gray-400">Returns & Exchanges</a></li>
+                    <li><a href="#" class="text-sm hover:text-gray-400">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <!-- Footer Column 3 -->
+            <div class="md:col-span-1">
+                <h2 class="text-lg font-semibold mb-4">Shop</h2>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-sm hover:text-gray-400">Shop Now</a></li>
+                    <li><a href="#" class="text-sm hover:text-gray-400">Deals</a></li>
+                    <li><a href="#" class="text-sm hover:text-gray-400">Gift Cards</a></li>
+                </ul>
+            </div>
+
+            <!-- Footer Column 4 -->
+            <div class="md:col-span-1">
+                <h2 class="text-lg font-semibold mb-4">Follow Us</h2>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-sm hover:text-gray-400">Facebook</a></li>
+                    <li><a href="#" class="text-sm hover:text-gray-400">Twitter</a></li>
+                    <li><a href="#" class="text-sm hover:text-gray-400">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="mt-8 text-center text-sm">
+            &copy; 2024 PrimeBazaar. All rights reserved.
+        </div>
+    </div>
+</footer>
+
+
+    <!-- JS -->
+    <script>
+        document.getElementById('user-menu-button').addEventListener('click', function() {
+            document.getElementById('user-menu').classList.toggle('hidden');
+        });
+
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('navbar').classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>
+
+{% block extra_js %}
+<script>
+    // Add any additional JS here
+</script>
+{% endblock %}

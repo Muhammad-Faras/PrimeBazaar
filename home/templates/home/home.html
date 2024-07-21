@@ -1,0 +1,249 @@
+{% extends 'home/slider.html' %}
+
+{% block title %}
+PrimeBazaar - Home
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-4">
+
+    <!-- Grid of Product Cards -->
+    <div class="relative -mt-24 md:-mt-48 md:relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+        <!-- Card 1 -->
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="p-4">
+                <h3 class="text-xl font-bold">Laptops</h3>
+            </div>
+            <div class="flex flex-wrap p-2">
+                {% for laptop in laptops %}
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    {% if laptop.image %}
+                    <a href="{% url 'product:product_detail' product_name=laptop.name product_type=laptop.sub_category.sub_category_name pk=laptop.id %}">
+                        <img src="{{ laptop.image.url }}" alt="{{ laptop.name }}" class="w-full object-cover">
+                    </a>
+                    {% endif %}
+                    <p class="text-sm text-gray-700">{{ laptop.name }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="p-4">
+                <a href="{% url 'product:product_list' subcategory_name='Laptops' %}" class="text-blue-500">See more</a>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="p-4">
+                <h3 class="text-xl font-bold">Nintendos</h3>
+            </div>
+            <div class="flex flex-wrap p-2">
+                {% for nintendo in nintendos %}
+                <div class="flex flex-col justify-center items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    {% if nintendo.image %}
+                    <a href="{% url 'product:product_detail' product_name=nintendo.name product_type=nintendo.sub_category.sub_category_name pk=nintendo.id %}">
+                        <img src="{{ nintendo.image.url }}" alt="{{ nintendo.name }}" class="w-full object-cover w-30 h-20">
+                    </a>
+                    {% endif %}
+                    <p class="text-sm text-gray-700">{{ nintendo.name }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="p-4">
+                <a href="{% url 'product:product_list' subcategory_name='Nintendo' %}" class="text-blue-500">See more</a>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="p-4">
+                <h3 class="text-xl font-bold">Top Selling Laptops</h3>
+            </div>
+            <div class="flex flex-wrap p-2">
+                {% for laptop in laptops %}
+                <div class="flex flex-col items-start w-full p-1">
+                    <img src="{{ laptop.image.url }}" alt="{{ laptop.name }}" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">{{ laptop.name }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="p-4">
+                <a href="#" class="text-blue-500">See more</a>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="p-4">
+                <h3 class="text-xl font-bold">Computer Accessories</h3>
+            </div>
+            <div class="flex flex-wrap p-2">
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+            </div>
+            <div class="p-4">
+                <a href="#" class="text-blue-500">See more</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Horizontal Scrollable Section -->
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-4">
+        <div class="p-4">
+            <h3 class="text-xl font-bold">Computer Accessories</h3>
+        </div>
+        <div class="flex gap-2 overflow-x-auto p-2">
+            {% for nintendo in nintendos %}
+            <div class="flex-shrink-0 w-40">
+                <img src="{{ nintendo.image.url }}" alt="{{ nintendo.name }}" class="w-full h-28 object-cover w-32 h-20">
+            </div>
+            {% endfor %}
+            <a href="{% url 'product:product_list' subcategory_name='Nintendo' %}" class="text-blue-500 flex-shrink-0 px-2 py-11">more...</a>
+        </div>
+    </div>
+
+    <!-- Second Grid of Product Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+        <!-- Card 1 -->
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="p-4">
+                <h3 class="text-xl font-bold">Computer Accessories</h3>
+            </div>
+            <div class="flex flex-wrap p-2">
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+            </div>
+            <div class="p-4">
+                <a href="#" class="text-blue-500">See more</a>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="p-4">
+                <h3 class="text-xl font-bold">Computer Accessories</h3>
+            </div>
+            <div class="flex flex-wrap p-2">
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+            </div>
+            <div class="p-4">
+                <a href="#" class="text-blue-500">See more</a>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="p-4">
+                <h3 class="text-xl font-bold">Computer Accessories</h3>
+            </div>
+            <div class="flex flex-wrap p-2">
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+            </div>
+            <div class="p-4">
+                <a href="#" class="text-blue-500">See more</a>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="p-4">
+                <h3 class="text-xl font-bold">Computer Accessories</h3>
+            </div>
+            <div class="flex flex-wrap p-2">
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+                <div class="flex flex-col items-start w-1/2 md:w-1/2 lg:w-1/2 p-1">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Headset" class="w-full object-cover">
+                    <p class="text-sm text-gray-700">Headset</p>
+                </div>
+            </div>
+            <div class="p-4">
+                <a href="#" class="text-blue-500">See more</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Horizontal Scrollable Section -->
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-4">
+        <div class="p-4">
+            <h3 class="text-xl font-bold">Computer Accessories</h3>
+        </div>
+        <div class="flex gap-2 overflow-x-auto p-2">
+            {% for nintendo in nintendos %}
+            <div class="flex-shrink-0 w-40">
+                <img src="{{ nintendo.image.url }}" alt="{{ nintendo.name }}" class="w-full h-28 object-cover">
+            </div>
+            {% endfor %}
+            <a href="{% url 'product:product_list' subcategory_name='Nintendo' %}" class="text-blue-500 flex-shrink-0 px-2 py-11">more...</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

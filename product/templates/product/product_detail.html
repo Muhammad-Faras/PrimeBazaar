@@ -1,0 +1,120 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<div class="w-full flex flex-col lg:flex-row gap-2 px-2 py-4">
+    <!-- Sidebar with Image URL -->
+    <div class="p-2 w-full lg:w-1/4 flex flex-col">
+        <!-- Product Purchase Card -->
+        <div class="border border-gray-300 bg-white p-4 shadow-lg rounded-md">
+            <h2 class="text-xl font-bold mb-2">{{ product.name }}</h2>
+            <div class="flex flex-col gap-2">
+                <!-- Price -->
+                <div class="flex items-center mb-4">
+                    <span class="text-lg font-bold text-red-500">${{ product.price }}</span>
+                </div>
+                <!-- Quantity Selection -->
+                <form method="post" action="{% url 'product:add_to_cart' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="w-full bg-yellow-500 text-white px-4 py-2 hover:bg-yellow-600 transition duration-300 mb-2">Add to Cart</button>
+                </form>
+                <!-- Shipping and Seller Information -->
+                <div class="text-gray-700 text-sm mb-4">
+                    <p><span class="font-bold">Ships from:</span> PrimeBazaar.com</p>
+                    <p><span class="font-bold">Sold by:</span> PrimeBazaar.com</p>
+                </div>
+                <!-- Returns Policy -->
+                <div class="text-gray-700 text-sm mb-4">
+                    <p><span class="font-bold">Returns:</span> Eligible for Return, Refund or Replacement within 30 days of receipt</p>
+                </div>
+                <!-- Payment and Support -->
+                <div class="text-gray-700 text-sm">
+                    <p><span class="font-bold">Payment:</span> Secure transaction</p>
+                    <p><span class="font-bold">Support:</span> Product support included</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Section -->
+    <div class="w-full lg:w-3/4 flex flex-col gap-y-2">
+        <div class="flex flex-col lg:flex-row gap-4 border border-gray-300 bg-white">
+            <!-- Product Image -->
+            <div class="relative w-full lg:w-1/3 p-4">
+                <!-- Like Button -->
+                <button class="absolute left-3 top-4 bg-red-500 text-white w-10 h-10 flex items-center justify-center rounded-full hover:bg-red-600 transition duration-300">
+                    <i class="fas fa-heart text-sm"></i>
+                </button>
+                <img src="{{ product.image.url }}" alt="Product Image" class="bg-gray-100 w-full h-auto">
+            </div>
+            <!-- Product Info -->
+            <div class="lg:w-2/3 p-4">
+                <div class="mb-4">
+                    <h1 class="text-2xl font-bold">{{ product.name }}</h1>
+                    <p class="text-gray-600 text-sm">{{ product.description }}</p>
+                </div>
+                <!-- Price and Offer -->
+                <div class="flex items-center mb-4">
+                    <span class="text-3xl font-bold text-red-500">${{ product.price }}</span>
+                </div>
+                <div class="text-sm text-gray-600 mb-4">
+                    <h2 class="text-xl font-bold mb-2">About this Item</h2>
+                    {% if product_type == 'Laptops' %}
+                    <ul class="flex flex-col gap-2">
+                        <li class="font-bold">Brand: <span class="font-normal">{{ product.brand }}</span></li>
+                        <li class="font-bold">Model Name: <span class="font-normal">{{ product.model_name }}</span></li>
+                        <li class="font-bold">Screen Size: <span class="font-normal">{{ product.screen_size }}</span></li>
+                        <li class="font-bold">Hard Disk Size: <span class="font-normal">{{ product.hard_disk_size }}</span></li>
+                        <li class="font-bold">CPU Model: <span class="font-normal">{{ product.cpu_model }}</span></li>
+                        <li class="font-bold">RAM Memory: <span class="font-normal">{{ product.ram_memory }}</span></li>
+                        <li class="font-bold">Operating System: <span class="font-normal">{{ product.operating_system }}</span></li>
+                        <li class="font-bold">Special Feature: <span class="font-normal">{{ product.special_feature }}</span></li>
+                        <li class="font-bold">Graphic Card: <span class="font-normal">{{ product.graphic_card }}</span></li>
+                    </ul>
+                    {% elif product_type == 'Nintendo' %}
+                    <ul class="flex flex-col gap-2">
+                        {% if product.brand %}
+                        <li class="font-bold">Brand: <span class="font-normal">{{ product.brand }}</span></li>
+                        {% endif %}
+                        {% if product.model_name %}
+                        <li class="font-bold">Model Name: <span class="font-normal">{{ product.model_name }}</span></li>
+                        {% endif %}
+                        {% if product.memory_storage_capacity %}
+                        <li class="font-bold">Memory Storage Capacity: <span class="font-normal">{{ product.memory_storage_capacity }}</span></li>
+                        {% endif %}
+                        {% if product.flash_memory_type %}
+                        <li class="font-bold">Flash Memory Type: <span class="font-normal">{{ product.flash_memory_type }}</span></li>
+                        {% endif %}
+                        {% if product.compatible_devices %}
+                        <li class="font-bold">Compatible Devices: <span class="font-normal">{{ product.compatible_devices }}</span></li>
+                        {% endif %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- More from frequently bought brands section -->
+<div class="relative w-full p-4 bg-white shadow-lg rounded-lg overflow-hidden mb-2">
+    <div class="pb-4">
+        <h3 class="text-2xl font-bold">More from frequently bought brands</h3>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <!-- Example Product Card -->
+        <div class="bg-white rounded-lg p-4">
+            <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Product 1" class="object-cover w-full h-42 mb-2">
+            <a href="#" class="text-sm break-words text-blue-600 hover:text-red-500 hover:underline">Turtle Beach Stealth Pro Multiplatform Wireless and Noise-Cancelling Gaming Headset</a>
+            <p class="text-gray-700 text-xl font-bold">$490</p>
+        </div>
+        <!-- Repeat similar blocks for other products -->
+        <div class="bg-white rounded-lg p-4">
+            <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg" alt="Product 2" class="object-cover w-full h-42 mb-2">
+            <a href="#" class="text-sm break-words text-blue-600 hover:text-red-500 hover:underline">Turtle Beach Stealth Pro Multiplatform Wireless and Noise-Cancelling Gaming Headset</a>
+            <p class="text-gray-700 text-xl font-bold">$490</p>
+        </div>
+        <!-- Add more product cards as needed -->
+    </div>
+</div>
+{% endblock %}
